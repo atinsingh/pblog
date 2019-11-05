@@ -1,0 +1,167 @@
+swagger: "2.0"
+info:
+  description: 'This is swagger document for the LMS System'
+  version: "1.0.0"
+  title: "Pragra Blog APIs"
+  contact:
+    email: "info@pragra.co"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "localhost:8080"
+basePath: "/api/v1"
+tags:
+  - name: "user"
+    description: "All account related APIs will go here"
+  - name: "category"
+    description: "All account related APIs will go here"
+  - name: "blog"
+    description: "All account related APIs will go here"
+schemes:
+  - "https"
+  - "http"
+paths:
+  /user:
+    post:
+      tags:
+        - "user"
+      summary: "Create User for blogging purpose"
+      description: ""
+      operationId: "adduser"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "User model"
+          required: true
+          schema:
+            $ref: '#/definitions/UserDto'
+      responses:
+        201:
+          description: 'User created successfully'
+          schema:
+            $ref: '#/definitions/UserDto'
+        400:
+          description: 'Bad request'
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  /user/{id}:
+    get:
+      tags:
+        - "user"
+      summary: "Finds user by status"
+      description: "Multiple status values can be provided with comma separated strings"
+      operationId: "findPetsById"
+      produces:
+        - "application/json"
+      parameters:
+        - name: id
+          in: path
+          description: "Status values that need to be considered for filter"
+          required: true
+          type: integer
+      responses:
+        200:
+          description: 'Ok'
+          schema:
+            $ref: '#/definitions/UserDto'
+        404:
+          description: 'User not found'
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  /category:
+    post:
+      tags:
+        - "category"
+      summary: "Create Category for blogging purpose"
+      description: ""
+      operationId: "addCategory"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Category model"
+          required: true
+          schema:
+            $ref: '#/definitions/CategoryDto'
+      responses:
+        201:
+          description: 'User created successfully'
+          schema:
+            $ref: '#/definitions/CategoryDto'
+        400:
+          description: 'Bad request'
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  /category/{id}:
+    get:
+      tags:
+        - "category"
+      summary: "Finds category by status"
+      description: "Multiple status values can be provided with comma separated strings"
+      produces:
+        - "application/json"
+      parameters:
+        - name: id
+          in: path
+          description: "Status values that need to be considered for filter"
+          required: true
+          type: integer
+      responses:
+        200:
+          description: 'Ok'
+          schema:
+            $ref: '#/definitions/CategoryDto'
+        404:
+          description: 'User not found'
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
+
+definitions:
+  UserDto:
+    type: "object"
+    properties:
+      id:
+        type: integer
+        format: "int64"
+      name:
+        type: string
+        maxLength: 40
+        minimum: 10
+      email:
+        type: string
+
+  CategoryDto:
+    type: "object"
+    properties:
+      id:
+        type: integer
+        format: "int64"
+      name:
+        type: string
+
+  ErrorResponse:
+    type: "object"
+    properties:
+      code:
+        type: integer
+        format: "int64"
+      description:
+        type: string
+        maxLength: 40
+        minimum: 10
+      timestamp:
+        type: string
+        format: date-time
+
+
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
