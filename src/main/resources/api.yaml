@@ -159,7 +159,7 @@ definitions:
         minimum: 10
       timestamp:
         type: string
-        format: date-time
+
 
 
 externalDocs:
